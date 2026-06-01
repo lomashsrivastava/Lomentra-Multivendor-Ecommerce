@@ -1,0 +1,22 @@
+# Netlify deployment configuration for Lomentra frontend (Vite + React)
+
+[build]
+  base      = "frontend"
+  command   = "npm run build"
+  publish   = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Proxy /api/* calls to the Render backend — avoids CORS issues from the browser
+[[redirects]]
+  from   = "/api/*"
+  to     = "https://lomentra-backend.onrender.com/api/:splat"
+  status = 200
+  force  = true
+
+# SPA fallback — redirect all non-file routes to index.html so React Router works
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
