@@ -9,7 +9,7 @@ export function SystemHealth() {
     const checkHealth = async () => {
       const start = performance.now()
       try {
-        const res = await fetch('http://localhost:3000/api/health')
+        const res = await fetch('/api/health')
         if (res.ok) {
           setLatency(Math.round(performance.now() - start))
           setStatus('healthy')
