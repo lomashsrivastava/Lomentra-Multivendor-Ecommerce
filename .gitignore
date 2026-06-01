@@ -3,6 +3,11 @@ node_modules/
 .pnp
 .pnp.js
 
+# Local MongoDB data folder (large binary files — never commit)
+.mongo_data/
+data/
+
+
 # Testing
 coverage/
 
