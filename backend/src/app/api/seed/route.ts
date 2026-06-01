@@ -1005,8 +1005,11 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       success: true,
       message: `Successfully seeded database with categories and ${insertedProducts.length} products mapped to new category IDs!`,
-      vendorEmail: 'vendor@nexus.com',
-      vendorPassword: 'password123',
+      testCredentials: {
+        admin: { email: 'admin@lomentra.com', password: 'admin@lomentra.com', role: 'admin' },
+        vendor: { email: 'vendor@nexus.com', password: 'vendor@nexus.com', role: 'vendor' },
+        note: 'These are test-only credentials. Change passwords in production.',
+      },
       storeSlug: store.slug,
     }, { status: 200 })
   } catch (error) {
