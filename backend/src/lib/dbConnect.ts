@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
   }
 }
 
-const MONGODB_URI = process.env.MONGODB_URI || ''
+const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGO_URI || ''
 
 const isNextBuild = !!process.env.NEXT_PHASE
 
