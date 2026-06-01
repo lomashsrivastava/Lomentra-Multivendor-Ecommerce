@@ -685,6 +685,23 @@ const CATEGORY_SEED_TREE: SeedCategoryNode[] = [
 ]
 
 export async function GET(req: NextRequest) {
+  // ── Security guard ───────────────────────────────────────────────────────────
+  // In production the seed endpoint MUST be protected by a secret token passed
+  // as ?secret=<SEED_SECRET> so random users cannot reset platform credentials.
+  // In development/test the check is skipped so local seeding still works easily.
+  const isProduction = process.env.NODE_ENV === 'production'
+  if (isProduction) {
+    const seedSecret = process.env.SEED_SECRET
+    const providedSecret = req.nextUrl.searchParams.get('secret')
+    if (!seedSecret || providedSecret !== seedSecret) {
+      return NextResponse.json(
+        { error: 'Forbidden: valid ?secret= token required to run the seeder in production' },
+        { status: 403 }
+      )
+    }
+  }
+  // ─────────────────────────────────────────────────────────────────────────────
+
   try {
     await dbConnect()
 

@@ -4,8 +4,7 @@ import jwt from 'jsonwebtoken'
 import dbConnect from '@/lib/dbConnect'
 import User from '@/database/models/User'
 import { sanitizeObject } from '@/security/sanitize'
-
-const JWT_SECRET = process.env.JWT_SECRET || 'development_only_secret_key_antigravity_multivendor'
+import { JWT_SECRET } from '@/lib/jwtSecret'
 
 export async function POST(req: NextRequest) {
   try {

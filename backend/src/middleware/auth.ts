@@ -1,7 +1,6 @@
 import { NextRequest } from 'next/server'
 import jwt from 'jsonwebtoken'
-
-const JWT_SECRET = process.env.JWT_SECRET || 'development_only_secret_key_antigravity_multivendor'
+import { JWT_SECRET } from '@/lib/jwtSecret'
 
 export interface DecodedUser {
   userId: string

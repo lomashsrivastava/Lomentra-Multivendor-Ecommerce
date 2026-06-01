@@ -14,8 +14,12 @@ services:
       - key: PORT
         value: 3000
       - key: MONGODB_URI
-        sync: false          # Set this in the Render dashboard
+        sync: false          # ← Set this manually in the Render dashboard — never commit real value
       - key: JWT_SECRET
-        generateValue: true  # Render auto-generates a secure random secret
+        generateValue: true  # Render auto-generates a cryptographically secure 32-byte random secret
       - key: NEXTAUTH_SECRET
-        generateValue: true
+        generateValue: true  # Render auto-generates a cryptographically secure 32-byte random secret
+      - key: SEED_SECRET
+        generateValue: true  # Protects /api/seed — only callable with ?secret=<this value>
+      - key: GEMINI_API_KEY
+        sync: false          # ← Optional: set only if you want the AI Assistant to work in production
