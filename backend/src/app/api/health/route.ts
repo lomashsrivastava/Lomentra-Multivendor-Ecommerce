@@ -9,8 +9,12 @@ export async function GET(req: NextRequest) {
     return limit.response
   }
 
+  const checkDb = req.nextUrl.searchParams.get('db') !== 'false'
+
   try {
-    await dbConnect()
+    if (checkDb) {
+      await dbConnect()
+    }
 
     const dbState = mongoose.connection.readyState
     const states = {
