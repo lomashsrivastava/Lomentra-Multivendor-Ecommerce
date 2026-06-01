@@ -17,8 +17,10 @@ const isProduction = nodeEnv === 'production'
 
 const rawSecret = process.env.JWT_SECRET
 
-if (isProduction && !rawSecret) {
-  // Hard-fail at module load time so the Render/Netlify deploy surfaces the
+const isNextBuild = !!process.env.NEXT_PHASE
+
+if (isProduction && !rawSecret && !isNextBuild) {
+  // Hard-fail at runtime so the Render/Netlify deploy surfaces the
   // misconfiguration immediately rather than silently using a weak key.
   throw new Error(
     '[SECURITY] JWT_SECRET environment variable is not set. ' +
