@@ -2,16 +2,14 @@ import mongoose from 'mongoose'
 import dns from 'dns'
 
 // Fallback DNS for local development if SRV lookups fail (common on Windows/Docker/virtual network interfaces)
-if (process.env.NODE_ENV !== 'production') {
-  try {
-    const servers = dns.getServers()
-    const fallbackServers = ['8.8.8.8', '1.1.1.1']
-    // Merge list, preserving system DNS after fallback resolvers, and filtering duplicates
-    const finalServers = Array.from(new Set([...fallbackServers, ...servers]))
-    dns.setServers(finalServers)
-  } catch (err) {
-    console.warn('Failed to configure custom local DNS resolver:', err)
-  }
+try {
+  const servers = dns.getServers()
+  const fallbackServers = ['8.8.8.8', '1.1.1.1']
+  // Merge list, preserving system DNS after fallback resolvers, and filtering duplicates
+  const finalServers = Array.from(new Set([...fallbackServers, ...servers]))
+  dns.setServers(finalServers)
+} catch (err) {
+  console.warn('Failed to configure DNS resolver:', err)
 }
 
 const MONGODB_URI = process.env.MONGODB_URI || ''
