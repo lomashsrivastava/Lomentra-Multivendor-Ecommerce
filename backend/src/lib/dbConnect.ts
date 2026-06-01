@@ -16,7 +16,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 const MONGODB_URI = process.env.MONGODB_URI || ''
 
-if (!MONGODB_URI && process.env.NODE_ENV === 'production') {
+const isNextBuild = !!process.env.NEXT_PHASE
+
+if (!MONGODB_URI && process.env.NODE_ENV === 'production' && !isNextBuild) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env')
 }
 
